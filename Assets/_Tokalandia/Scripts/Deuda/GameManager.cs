@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text timeTxt;
     public GameObject gameOverPanel;
 
+    public AudioClip coinSound;
+    public AudioSource audioSource;
+
     private float debtTimer = 0f;
 
     private void Awake()
@@ -68,6 +71,8 @@ public class GameManager : MonoBehaviour
     {
         coins += amount;
         if (coins < 0) coins = 0;
+
+        audioSource.PlayOneShot(coinSound);
         UpdateUI();
     }
 

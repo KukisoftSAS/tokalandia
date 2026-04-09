@@ -3,11 +3,12 @@ using System.Collections;
 
 public class GhostBlink : MonoBehaviour
 {
-    public Renderer ghostRenderer;
+    [SerializeField] private Renderer ghostRenderer;
 
     [Header("Blink Settings")]
-    public Color hitColor = Color.red;
-    public float blinkDuration = 0.15f;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float blinkDuration = 0.15f;
+    [SerializeField] private AudioSource hitSound;
 
     private Material ghostMaterial;
     private Color originalColor;
@@ -35,7 +36,7 @@ public class GhostBlink : MonoBehaviour
     IEnumerator BlinkRoutine()
     {
         SetColor(hitColor);
-
+        hitSound.PlayOneShot(hitSound.clip);
         yield return new WaitForSeconds(blinkDuration);
 
         SetColor(originalColor);
