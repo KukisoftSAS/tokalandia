@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public class ChunkSpawner : MonoBehaviour
@@ -32,6 +33,7 @@ public class ChunkSpawner : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.gameOver) return;
         CheckAndRecycleChunks();
     }
 

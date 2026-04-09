@@ -15,6 +15,7 @@ public class RunnerPlayerController : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.gameOver) return;
         HandleKeyboardInput();
         HandleTouchInput();
         MovePlayer();
