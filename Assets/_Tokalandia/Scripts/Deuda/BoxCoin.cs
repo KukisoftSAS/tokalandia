@@ -8,7 +8,7 @@ public class BoxCoin : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Debug.Log("¡Moneda recogida!");
+            //Debug.Log("¡Moneda recogida!");
             GameManager.Instance.AddCoins(coinValue);
             Destroy(gameObject); // Destroy the coin after collecting it
         }

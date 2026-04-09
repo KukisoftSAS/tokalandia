@@ -133,12 +133,12 @@ public class GameManager : MonoBehaviour
     private void UpdateUI()
     {
         if (coinsTxt != null)
-            coinsTxt.text = "Coins: " + coins;
+            coinsTxt.text = "" + coins;
 
         if (debtTxt != null)
-            debtTxt.text = "Debt: " + debt;
+            debtTxt.text = "" + debt;
 
         if (timeTxt != null)
-            timeTxt.text = "Time: " + Mathf.FloorToInt(timeSurvived);
+            timeTxt.text = "" + Mathf.FloorToInt(timeSurvived);
     }
 }

@@ -2,12 +2,30 @@ using UnityEngine;
 
 public class CoinThrower : MonoBehaviour
 {
+        [Header("Cost")]
+    public int coinCost = 5;
+
+    [Header("Ghost Effect")]
+    public GhostController ghostController;
+    public float slowDuration = 1.5f;
+    public float pushBackAmount = 2f;
+
     public void ThrowCoins()
-    {if(GameManager.Instance.coins <= 0)
+    {
+        if (GameManager.Instance == null || ghostController == null)
+            return;
+
+        bool couldSpend = GameManager.Instance.SpendCoins(coinCost);
+
+        if (!couldSpend)
         {
-            return; // No coins to throw
+            Debug.Log("Not enough coins!");
+            return;
         }
-        GameManager.Instance.SpendCoins(1);
-        GameManager.Instance.ReduceDebt(1);
+
+        ghostController.SlowAndPushBack(slowDuration, pushBackAmount);
+        GameManager.Instance.ReduceDebt(3);
+
+        Debug.Log("Coins thrown! Ghost slowed.");
     }
 }

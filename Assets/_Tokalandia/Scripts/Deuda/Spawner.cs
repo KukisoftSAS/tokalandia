@@ -27,7 +27,7 @@ public class ChunkSpawner : MonoBehaviour
             Debug.Log($"{i} Spawned chunk at Z: {nextSpawnZ}");
         }
 
-        nextSpawnZ = startSpawnZ - (maxChunkCount * chunkLength * 0.5f);
+        nextSpawnZ = -125;//startSpawnZ - (maxChunkCount * chunkLength * 0.5f);
     }
 
     void Update()
