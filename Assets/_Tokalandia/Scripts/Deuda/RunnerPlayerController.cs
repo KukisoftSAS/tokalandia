@@ -2,22 +2,18 @@ using UnityEngine;
 
 public class RunnerPlayerController : MonoBehaviour
 {
-    [Header("Lane Settings")]
     public float[] laneXPositions = { -1.8f, 0f, 1.8f };
     public int currentLane = 1;
     public float laneSwitchSpeed = 12f;
-
-    [Header("Forward Movement")]
-    public float forwardSpeed = 6f;
+    public float fixedZ = 0f;
 
     [Header("Swipe Settings")]
-    public float minSwipeDistance = 50f;
+    public float minSwipeDistance = 60f;
 
     private Vector2 touchStartPos;
-    private Vector2 touchEndPos;
     private bool isSwiping = false;
 
-    private void Update()
+    void Update()
     {
         HandleKeyboardInput();
         HandleTouchInput();
@@ -27,14 +23,10 @@ public class RunnerPlayerController : MonoBehaviour
     void HandleKeyboardInput()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-        {
             MoveLeft();
-        }
 
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-        {
             MoveRight();
-        }
     }
 
     void HandleTouchInput()
@@ -54,20 +46,15 @@ public class RunnerPlayerController : MonoBehaviour
             case TouchPhase.Canceled:
                 if (!isSwiping) return;
 
-                touchEndPos = touch.position;
-                Vector2 swipeDelta = touchEndPos - touchStartPos;
+                Vector2 swipeDelta = touch.position - touchStartPos;
 
                 if (Mathf.Abs(swipeDelta.x) > minSwipeDistance &&
                     Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
                 {
                     if (swipeDelta.x > 0)
-                    {
                         MoveRight();
-                    }
                     else
-                    {
                         MoveLeft();
-                    }
                 }
 
                 isSwiping = false;
@@ -90,19 +77,13 @@ public class RunnerPlayerController : MonoBehaviour
         Vector3 targetPosition = new Vector3(
             laneXPositions[currentLane],
             transform.position.y,
-            transform.position.z - forwardSpeed * Time.deltaTime
+            fixedZ
         );
 
-        Vector3 newPosition = transform.position;
-
-        newPosition.x = Mathf.Lerp(
-            transform.position.x,
-            targetPosition.x,
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
             laneSwitchSpeed * Time.deltaTime
         );
-
-        newPosition.z = targetPosition.z;
-
-        transform.position = newPosition;
     }
 }
